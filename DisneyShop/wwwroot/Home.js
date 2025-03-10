@@ -56,3 +56,36 @@ const register = async () => {
         alert(err.message);
     }
 };
+
+//const userToUpdate = async () => {
+//    const name ?= document.querySelector("#name").value,
+//    const password = document.querySelector("#password").value;
+//    const lastName = document.querySelector("#lastName").value;
+//    const firstName = document.querySelector("#firstName").value;
+
+//    try {
+//        const response = await fetch("https://localhost:44371/api/User/register", {
+//            method: "POST",
+//            headers: {
+//                "Content-Type": "application/json"
+//            },
+//            body: JSON.stringify({ name, password, lastName, firstName })
+//        });
+
+//        const data = await response.json();
+
+//        if (!response.ok) {
+//            throw new Error(data.message || "הרשמה נכשלה, נסי שנית");
+//        }
+
+
+//        alert("ההרשמה בוצעה בהצלחה! 🎉");
+//    } catch (err) {
+//        alert(err.message);
+//    }
+
+
+
+
+//}
+
