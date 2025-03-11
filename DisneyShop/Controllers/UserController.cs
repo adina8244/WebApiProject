@@ -30,14 +30,83 @@ namespace DisneyShop.Controllers
         public ActionResult Post([FromBody] string Name, string LastName, string FirstName, string Password)
         {
             var user = new User(Name, LastName, FirstName, Password);
-            int numberOfUsers = System.IO.File.ReadLines("M:\\webApi\\DisneyShop").Count();
+            int numberOfUsers = System.IO.File.ReadLines("C:\\Users\\משתמש\\Desktop\\webApi").Count();
             user.id = numberOfUsers + 1;
             string userJson = JsonSerializer.Serialize(user);
-            System.IO.File.AppendAllText("M:\\webApi\\DisneyShop", userJson + Environment.NewLine);
+            System.IO.File.AppendAllText("C:\\Users\\משתמש\\Desktop\\webApi", userJson + Environment.NewLine);
             return CreatedAtAction(nameof(Get), new { id = user.id }, user);
 
         }
 
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] User user)
+        {
+            try
+            {
+                if (user == null || string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.Password))
+                {
+                    return BadRequest("פרטים חסרים");
+                }
+
+                // בדיקה אם המשתמש כבר קיים
+                var existingUsers = System.IO.File.ReadAllLines("C:\\Users\\משתמש\\Desktop\\webApi");
+                foreach (var line in existingUsers)
+                {
+                    var existingUser = JsonSerializer.Deserialize<User>(line);
+                    if (existingUser.Name == user.Name)
+                    {
+                        return BadRequest("המשתמש כבר קיים");
+                    }
+                }
+
+                // יצירת משתמש חדש
+                int numberOfUsers = existingUsers.Length;
+                user.id = numberOfUsers + 1;
+                string userJson = JsonSerializer.Serialize(user);
+                System.IO.File.AppendAllText("C:\\Users\\משתמש\\Desktop\\webApi", userJson + Environment.NewLine);
+
+                return Ok(new { message = "ההרשמה בוצעה בהצלחה! 🎉", user });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"שגיאה בשרת: {ex.Message}");
+            }
+        }
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] User user)
+        {
+            string filePath = "C:\\Users\\משתמש\\Desktop\\webApi";
+
+            // בודקים אם הקובץ קיים
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("Database file not found");
+            }
+
+            try
+            {
+                string? currentUserInFile;
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    while ((currentUserInFile = reader.ReadLine()) != null)
+                    {
+                        User storedUser = JsonSerializer.Deserialize<User>(currentUserInFile);
+
+                        // בודקים אם כתובת האימייל והסיסמה תואמים
+                        if (storedUser.Name == user.Name && storedUser.Password == user.Password)
+                        {
+                            return Ok(new { message = "התחברות הצליחה", user = storedUser });
+                        }
+                    }
+                }
+
+                return Unauthorized("שם משתמש או סיסמה שגויים");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"שגיאת שרת: {ex.Message}");
+            }
+        }
         // PUT api/<UserController>/5
         //[HttpPut("{id}")]
         //public void Put(int id, [FromBody] string value)
@@ -108,3 +177,4 @@ namespace DisneyShop.Controllers
         }
     }
 }
+
