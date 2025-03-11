@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using System.IO;
+using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,9 +27,9 @@ namespace DisneyShop.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public ActionResult Post([FromBody] string Name, string LastName ,string FirstName, string Password)
+        public ActionResult Post([FromBody] string Name, string LastName, string FirstName, string Password)
         {
-            var user = new User(Name, LastName, FirstName, Password);   
+            var user = new User(Name, LastName, FirstName, Password);
             int numberOfUsers = System.IO.File.ReadLines("M:\\webApi\\DisneyShop").Count();
             user.id = numberOfUsers + 1;
             string userJson = JsonSerializer.Serialize(user);
@@ -66,6 +68,43 @@ namespace DisneyShop.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        public ActionResult UpdateUserByEmailAndPassword(string filePath, string email, string password, User updatedUser)
+        {
+            string? currentUserInFile;
+            bool userFound = false;
+            string tempFilePath = Path.GetTempFileName();
+
+            using (StreamReader reader = System.IO.File.OpenText(filePath))
+            using (StreamWriter writer = new StreamWriter(tempFilePath))
+            {
+                while ((currentUserInFile = reader.ReadLine()) != null)
+                {
+                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
+                    if (user.Name == email && user.Password == password)
+                    {
+                        userFound = true;
+                        writer.WriteLine(JsonSerializer.Serialize(updatedUser));
+                    }
+                    else
+                    {
+                        writer.WriteLine(currentUserInFile);
+                    }
+                }
+            }
+
+            if (userFound)
+            {
+                System.IO.File.Delete(filePath);
+                System.IO.File.Move(tempFilePath, filePath);
+                return Ok(updatedUser);
+            }
+            else
+            {
+                System.IO.File.Delete(tempFilePath);
+                return NotFound("User not found");
+            }
         }
     }
 }
