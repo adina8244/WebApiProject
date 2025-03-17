@@ -49,7 +49,8 @@
         }
 
         button {
-            background-color: #007bff;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b, #ffcc00, #00c6ff, #4CAF50, #ff00ff);
+            background-size: 400% 400%;
             color: white;
             border: none;
             padding: 10px;
@@ -57,21 +58,46 @@
             margin-top: 15px;
             border-radius: 5px;
             cursor: pointer;
+            animation: gradientBG 5s infinite linear;
         }
 
-            button:hover {
-                background-color: #0056b3;
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
             }
+
+            25% {
+                background-position: 50% 100%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            75% {
+                background-position: 50% 0%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
 
         a {
             display: block;
             margin-top: 10px;
-            color: #007bff;
+            color: #ff416c;
             text-decoration: none;
-            cursor: pointer;
+            font-weight: bold;
+            transition: color 0.3s;
         }
 
             a:hover {
+                color: #ffcc00;
                 text-decoration: underline;
             }
     </style>
