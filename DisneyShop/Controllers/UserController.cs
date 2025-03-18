@@ -30,10 +30,10 @@ namespace DisneyShop.Controllers
         public ActionResult Post([FromBody] string Name, string LastName, string FirstName, string Password)
         {
             var user = new User(Name, LastName, FirstName, Password);
-            int numberOfUsers = System.IO.File.ReadLines("C:\\Users\\משתמש\\Desktop\\webApi").Count();
+            int numberOfUsers = System.IO.File.ReadLines("User.txt").Count();
             user.id = numberOfUsers + 1;
             string userJson = JsonSerializer.Serialize(user);
-            System.IO.File.AppendAllText("C:\\Users\\משתמש\\Desktop\\webApi", userJson + Environment.NewLine);
+            System.IO.File.AppendAllText("User.txt", userJson + Environment.NewLine);
             return CreatedAtAction(nameof(Get), new { id = user.id }, user);
 
         }
@@ -43,13 +43,13 @@ namespace DisneyShop.Controllers
         {
             try
             {
-                if (user == null || string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.Password))
+                if (user == null || string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.Password) || string.IsNullOrEmpty(user.FirstName) || string.IsNullOrEmpty(user.LastName))
                 {
                     return BadRequest("פרטים חסרים");
                 }
 
                 // בדיקה אם המשתמש כבר קיים
-                var existingUsers = System.IO.File.ReadAllLines("C:\\Users\\משתמש\\Desktop\\webApi");
+                var existingUsers = System.IO.File.ReadAllLines("User.txt");
                 foreach (var line in existingUsers)
                 {
                     var existingUser = JsonSerializer.Deserialize<User>(line);
@@ -63,7 +63,7 @@ namespace DisneyShop.Controllers
                 int numberOfUsers = existingUsers.Length;
                 user.id = numberOfUsers + 1;
                 string userJson = JsonSerializer.Serialize(user);
-                System.IO.File.AppendAllText("C:\\Users\\משתמש\\Desktop\\webApi", userJson + Environment.NewLine);
+                System.IO.File.AppendAllText("User.txt", userJson + Environment.NewLine);
 
                 return Ok(new { message = "ההרשמה בוצעה בהצלחה! 🎉", user });
             }
@@ -75,7 +75,7 @@ namespace DisneyShop.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] User user)
         {
-            string filePath = "C:\\Users\\משתמש\\Desktop\\webApi";
+            string filePath = "User.txt";
 
             // בודקים אם הקובץ קיים
             if (!System.IO.File.Exists(filePath))
