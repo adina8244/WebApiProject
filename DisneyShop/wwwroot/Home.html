@@ -103,62 +103,49 @@
     </style>
 </head>
 <body>
-
     <div class="container">
-        <!-- טופס התחברות -->
         <div class="form-container" id="login-form">
             <h2>התחברות</h2>
             <label for="login-username">שם משתמש</label>
             <input type="email" id="login-username" placeholder="example@email.com">
-
             <label for="login-password">סיסמא</label>
             <input type="password" id="login-password">
-
             <button onclick="login()">התחברות</button>
             <a href="#" id="switch-to-register">משתמש חדש</a>
+            
         </div>
 
-        <!-- טופס רישום (מוסתר בהתחלה) -->
         <div class="form-container hidden" id="register-form">
             <h2>רישום</h2>
             <label for="register-username">שם משתמש</label>
             <input type="email" id="register-username" placeholder="example@email.com">
-
             <label for="register-password">סיסמא</label>
             <input type="password" id="register-password">
-
             <label for="first-name">שם פרטי</label>
             <input type="text" id="first-name">
-
             <label for="last-name">שם משפחה</label>
             <input type="text" id="last-name">
-
             <button onclick="register()">רישום</button>
             <a href="#" id="switch-to-login">כבר יש לך חשבון? התחבר</a>
         </div>
+
+        <div class="form-container hidden" id="update-form">
+            <h2>עדכון פרטים</h2>
+            <label for="update-username">שם משתמש חדש</label>
+            <input type="text" id="update-UserName" placeholder="שם חדש">
+            <label for="update-password">סיסמא חדשה</label>
+            <input type="password" id="update-Password">
+            <label for="first-name">שם פרטי חדש</label>
+            <input type="text" id="update-FirstName">
+            <label for="last-name">שם משפחה חדש</label>
+            <input type="text" id="update-LastName">
+            <button onclick="updateUser()">עדכן</button>
+            <div id="successMessage" style="display: none; color: green;">
+                ✅ הנתונים עודכנו בהצלחה!
+            </div>
+        </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const loginForm = document.getElementById("login-form");
-            const registerForm = document.getElementById("register-form");
-
-            const switchToRegister = document.getElementById("switch-to-register");
-            const switchToLogin = document.getElementById("switch-to-login");
-
-            switchToRegister.addEventListener("click", function (event) {
-                event.preventDefault(); // מונע מהדף לרענן
-                loginForm.classList.add("hidden");
-                registerForm.classList.remove("hidden");
-            });
-
-            switchToLogin.addEventListener("click", function (event) {
-                event.preventDefault();
-                registerForm.classList.add("hidden");
-                loginForm.classList.remove("hidden");
-            });
-        });
-    </script>
     <script src="home.js"></script>
+
 </body>
 </html>
