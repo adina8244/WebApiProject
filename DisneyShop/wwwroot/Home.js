@@ -23,7 +23,7 @@ async function login() {
     const password = document.querySelector("#login-password").value;
 
     try {
-        const response = await fetch("https://localhost:7180/api/Users/login", {
+        const response = await fetch("api/Users/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ UserName: UserName, Password: password })
@@ -65,7 +65,7 @@ async function register() {
     };
 
     try {
-        const response = await fetch("https://localhost:7180/api/Users", { // שונה מ-User/register ל-Users
+        const response = await fetch("api/Users", { 
             method: "POST",
             body: JSON.stringify(user),
             headers: { "Content-Type": "application/json" }
@@ -104,7 +104,7 @@ async function updateUser() {
     const user = { id: userId, UserName, Password, FirstName, LastName };
 
     try {
-        const response = await fetch(`https://localhost:7180/api/Users/${userId}`, {
+        const response = await fetch(`api/Users/${userId}`, {
             method: 'PUT',
             body: JSON.stringify(user),
             headers: { 'Content-Type': "application/json" }
