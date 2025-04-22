@@ -1,5 +1,2 @@
-{"UserName":" adina488476@gmail.com","Password":"1234","FirstName":"Adina","LastName":"Taitelboum","id":1}
-{"UserName":"2","Password":"2","FirstName":"2","LastName":"2","id":2}
-{"UserName":"3","Password":"3","FirstName":"3","LastName":"3","id":3}
-{"UserName":"6","Password":"6","FirstName":"6","LastName":"6","id":4}
-{"UserName":"9","Password":"9","FirstName":"9","LastName":"9","id":5}
+
+ {"UserName":"1","Password":"1","FirstName":"1","LastName":"1","id":3}

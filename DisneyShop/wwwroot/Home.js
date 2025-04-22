@@ -11,19 +11,19 @@
         document.getElementById("login-form").classList.remove("hidden");
     });
 
-    document.querySelector("#login-form button").addEventListener("click", login);
+    document.querySelector("#login-form button").addEventListener("click", logIn);
     document.querySelector("#register-form button").addEventListener("click", register);
     document.querySelector("#update-form button").addEventListener("click", updateUser);
 
 });
 
 // הפונקציה להתחברות
-async function login() {
+async function logIn() {
     const UserName = document.querySelector("#login-username").value;
     const password = document.querySelector("#login-password").value;
 
     try {
-        const response = await fetch("api/Users/login", {
+        const response = await fetch("api/Users/logIn", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ UserName: UserName, Password: password })
@@ -65,7 +65,7 @@ async function register() {
     };
 
     try {
-        const response = await fetch("api/Users", { 
+        const response = await fetch("api/Users/register", { 
             method: "POST",
             body: JSON.stringify(user),
             headers: { "Content-Type": "application/json" }

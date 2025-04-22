@@ -1,70 +1,91 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using Services;
+using Entites;
 
 namespace WebApplication1.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class Users : ControllerBase    
     {
-        private string filePath = "Users.txt";
+        Service service = new Service();
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "Adina", "Sara" };
-        }
+        //// GET: api/<Users>
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
-        [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest request)
+        // GET api/<Users>/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
+
+        // POST api/<Users>
+        [HttpPost("register")]
+        public IActionResult addUserRegister([FromBody] User newUser)
         {
-            var users = System.IO.File.ReadAllLines(filePath);
-            foreach (var line in users)
+            try
             {
-                var user = JsonSerializer.Deserialize<User>(line);
-                if (user?.UserName == request.UserName && user?.Password == request.Password)
-                {
-                    return Ok(new { UserId = user.id }); // מחזירים את ה-ID של המשתמש לאחר התחברות
-                }
+                User user = service.addUserRegister(newUser);
+                return Ok(user);
             }
-            return Unauthorized("Incorrect email or password");
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
-
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        //POST api/<Users>
+        [HttpPost("logIn")]
+        public IActionResult logIn([FromBody] UserLogin userLogin)
         {
-            var users = System.IO.File.ReadAllLines(filePath);
-            var user = users.Select(line => JsonSerializer.Deserialize<User>(line)).FirstOrDefault(u => u?.id == id);
-            return user != null ? Ok(user) : NotFound();
+            try
+            {
+                User user = service.logIn(userLogin);
+                return Ok(user);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        [HttpPost]
-        public IActionResult Post([FromBody] User user)
-        {
-            user.id = System.IO.File.ReadLines(filePath).Count() + 1;
-            string userJson = JsonSerializer.Serialize(user);
-            System.IO.File.AppendAllText(filePath, userJson + "\n");
-            return CreatedAtAction(nameof(Get), new { id = user.id }, user);
-        }
-
+        //PUT api/<Users>
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] User updatedUser)
+        public IActionResult UpdateUser(int id, [FromBody] User updatedUser)
         {
-            var users = System.IO.File.ReadAllLines(filePath).ToList();
-            for (int i = 0; i < users.Count; i++)
+            try
             {
-                var user = JsonSerializer.Deserialize<User>(users[i]);
-                if (user?.id == id)
-                {
-                    updatedUser.id = id;
-                    users[i] = JsonSerializer.Serialize(updatedUser);
-                    System.IO.File.WriteAllLines(filePath, users);
-                    return Ok(updatedUser);
-                }
+                User user = service.UpdateUser(id, updatedUser); ;
+                return Ok(user);
             }
-            return NotFound();
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+
+
+
+        // DELETE api/<Users>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
         }
     }
 }
