@@ -38,9 +38,10 @@ async function logIn() {
         alert("התחברת בהצלחה!");
 
         // שומרים את ה-UserId ב-localStorage
-        if (data && data.userId) { // השתמש ב-userId עם u קטנה
-            localStorage.setItem("userId", data.userId); // השתמש ב-userId עם u קטנה
-            console.log("UserId saved:", data.userId); // הוספתי לוג לבדוק אם ה-UserId נשמר
+        if (data && data.id) { // השתמש ב-userId עם u קטנה
+            localStorage.setItem("userId", data.id); // השתמש ב-userId עם u קטנה
+            console.log("UserId saved:", data.id); // הוספתי לוג לבדוק אם ה-UserId נשמר
+            console.log("Response data:", data);
         } else {
             console.log("UserId not found in response");
         }
@@ -109,7 +110,7 @@ async function updateUser() {
             body: JSON.stringify(user),
             headers: { 'Content-Type': "application/json" }
         });
-
+        
         if (!response.ok) {
             throw new Error("❌ לא ניתן לשמור את הנתונים!");
         }

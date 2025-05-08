@@ -43,6 +43,7 @@ namespace Services
         }
         public User UpdateUser(int id, User updatedUser)
         {
+            Console.WriteLine($"Updating user with ID: {id}");
             if (!validPassword(updatedUser.Password))
             {
                 throw new ArgumentException("you nead to enter a good password");
