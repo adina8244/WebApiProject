@@ -4,8 +4,8 @@ namespace Repositories
 {
     public interface IDisneyRepositorty
     {
-        User addUserRegister(User user);
-        User logIn(UserLogin userLogin);
-        User UpdateUser(int id, User updatedUser);
+        Task<User> addUserRegister(User user);
+        Task<User> logIn(UserLogin userLogin);
+        Task<User> UpdateUser(int id, User updatedUser);
     }
 }

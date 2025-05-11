@@ -1,4 +1,5 @@
-﻿using Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using Repositories;
 using Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,10 +9,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IDisneyRepositorty,DisneyRepositorty>();
 builder.Services.AddTransient<IService,Service>();
+builder.Services.AddDbContext<webApiDB8192Context>(option => option.UseSqlServer(@"Data Source=srv2\pupils;Initial Catalog=webApiDB8192;Integrated Security=True; Trusted_Connection=True;TrustServerCertificate=True"));
+
 
 var app = builder.Build();
-
-
 
 
 app.UseStaticFiles();

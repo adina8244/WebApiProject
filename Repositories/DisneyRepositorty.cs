@@ -1,66 +1,34 @@
 ﻿using Entites;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace Repositories
 {
     public class DisneyRepositorty : IDisneyRepositorty
     {
-
-
-        public User addUserRegister(User user)
+        webApiDB8192Context _webApiDB8192Context;
+        public DisneyRepositorty(webApiDB8192Context webApiDB8192Context)
         {
-            string filePath = "Users.txt";
-            int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
-            user.id = numberOfUsers + 1;
-            string userJson = JsonSerializer.Serialize(user);
-            System.IO.File.AppendAllText(filePath, userJson + Environment.NewLine);
-            return user;
+            _webApiDB8192Context = webApiDB8192Context;
+        }
+        public async Task<User> addUserRegister(User user)
+        {
+       
+            await _webApiDB8192Context.Users.AddAsync(user);
+            await _webApiDB8192Context.SaveChangesAsync();
+            return await Task.FromResult(user);
         }
 
-        public User logIn(UserLogin userLogin)
+        public async Task<User> logIn(UserLogin userLogin)
         {
-            string filePath = "./Users.txt";
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User currentUser = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (userLogin.UserName == currentUser.UserName && currentUser.Password == userLogin.Password)
-                    {
-
-                        return currentUser;
-                    }
-                }
-            }
-            return null;
-
+            return await _webApiDB8192Context.Users.FirstOrDefaultAsync(user => user.UserName == userLogin.UserName && user.Password == userLogin.Password);
         }
 
-        public User UpdateUser(int id, User updatedUser)
+        public async Task<User> UpdateUser(int id, User updatedUser)
         {
-            string filePath = "./Users.txt";
-            string textToReplace = string.Empty;
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.id == id)
-                        textToReplace = currentUserInFile;
-                }
-            }
-
-            if (textToReplace != string.Empty)
-            {
-                string text = System.IO.File.ReadAllText(filePath);
-                text = text.Replace(textToReplace, JsonSerializer.Serialize(updatedUser));
-                System.IO.File.WriteAllText(filePath, text);
-                return updatedUser;
-            }
-            return null;
+            _webApiDB8192Context.Users.Update(updatedUser);
+            await _webApiDB8192Context.SaveChangesAsync();
+            return updatedUser;
         }
     }
 }

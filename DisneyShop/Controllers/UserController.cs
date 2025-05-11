@@ -17,27 +17,14 @@ namespace WebApplication1.Controllers
             service = s;
         }
 
-        //// GET: api/<Users>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        // GET api/<Users>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
+        
         // POST api/<Users>
         [HttpPost("register")]
-        public IActionResult addUserRegister([FromBody] User newUser)
+        public async Task<IActionResult> addUserRegister([FromBody] User newUser)
         {
             try
             {
-                User user = service.addUserRegister(newUser);
+               User user =await  service.addUserRegister(newUser);
                 return Ok(user);
             }
             catch (ArgumentException ex)
@@ -49,11 +36,11 @@ namespace WebApplication1.Controllers
 
         //POST api/<Users>
         [HttpPost("logIn")]
-        public IActionResult logIn([FromBody] UserLogin userLogin)
+        public async Task<IActionResult> logIn([FromBody] UserLogin userLogin)
         {
             try
             {
-                User user = service.logIn(userLogin);
+                Task<User> user = service.logIn(userLogin);
                 return Ok(user);
             }
             catch (KeyNotFoundException ex)
@@ -64,11 +51,11 @@ namespace WebApplication1.Controllers
 
         //PUT api/<Users>
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] User updatedUser)
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] User updatedUser)
         {
             try
             {
-                User user = service.UpdateUser(id, updatedUser); ;
+                Task<User> user = service.UpdateUser(id, updatedUser); ;
                 return Ok(user);
             }
             catch (KeyNotFoundException ex)

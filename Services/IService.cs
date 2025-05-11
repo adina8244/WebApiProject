@@ -4,9 +4,9 @@ namespace Services
 {
     public interface IService
     {
-        User addUserRegister(User newUser);
-        User logIn(UserLogin userLogin);
-        User UpdateUser(int id, User updatedUser);
+        Task<User> addUserRegister(User newUser);
+        Task<User> logIn(UserLogin userLogin);
+        Task<User> UpdateUser(int id, User updatedUser);
         bool validPassword(string password);
     }
 }
