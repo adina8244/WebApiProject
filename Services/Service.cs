@@ -25,14 +25,14 @@ namespace Services
         public async Task<User> logIn(UserLogin userLogin)
         {
 
-            Task<User> theLoggedInUser = repostery.logIn(userLogin);
+            User theLoggedInUser = await repostery.logIn(userLogin);
             if (theLoggedInUser == null)
             {
                 throw new KeyNotFoundException("User not found with the provided username and password.");
             }
 
 
-            return await theLoggedInUser;
+            return  theLoggedInUser;
 
         }
         public bool validPassword(string password)
@@ -52,12 +52,12 @@ namespace Services
             {
                 throw new ArgumentException("you nead to enter a good password");
             }
-            Task<User> theUpdatedUser = repostery.UpdateUser(id, updatedUser);
+            User theUpdatedUser = await repostery.UpdateUser(id, updatedUser);
             if (theUpdatedUser == null)
             {
                 throw new KeyNotFoundException("you are not logged in");
             }
-            return await theUpdatedUser;
+            return theUpdatedUser;
         }
 
 

@@ -12,7 +12,7 @@ namespace Entites;
 public partial class User
 {
     [Key]
-    [Column("ID")]
+    [Column("USER_ID")]
     public int Id { get; set; }
 
     [Required]
