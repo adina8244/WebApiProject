@@ -11,7 +11,11 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class Users : ControllerBase    
     {
-        Service service = new Service();
+        IService service;
+        public Users(IService s)
+        {
+            service = s;
+        }
 
         //// GET: api/<Users>
         //[HttpGet]

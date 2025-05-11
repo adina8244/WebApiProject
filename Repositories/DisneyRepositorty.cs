@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace Repositories
 {
-    public class DisneyRepositorty
+    public class DisneyRepositorty : IDisneyRepositorty
     {
 
 

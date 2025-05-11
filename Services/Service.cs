@@ -4,10 +4,14 @@ using Zxcvbn;
 
 namespace Services
 {
-    public class Service    
+    public class Service : IService
     {
 
-        DisneyRepositorty repostery = new DisneyRepositorty();
+        IDisneyRepositorty repostery;
+        public Service(IDisneyRepositorty r)
+        {
+            repostery = r;
+        }
         public User addUserRegister(User newUser)
         {
             if (!validPassword(newUser.Password))
@@ -36,7 +40,7 @@ namespace Services
 
             var result = Zxcvbn.Core.EvaluatePassword(password);
             int score = result.Score;
-            if ((score)<2)
+            if ((score) < 2)
                 return false;
             return true;
 
@@ -49,7 +53,7 @@ namespace Services
                 throw new ArgumentException("you nead to enter a good password");
             }
             User theUpdatedUser = repostery.UpdateUser(id, updatedUser);
-            if (theUpdatedUser==null)
+            if (theUpdatedUser == null)
             {
                 throw new KeyNotFoundException("you are not logged in");
             }
