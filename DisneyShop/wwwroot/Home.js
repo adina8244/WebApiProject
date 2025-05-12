@@ -35,17 +35,19 @@ async function logIn() {
         }
 
         const data = await response.json();
-        alert("התחברת בהצלחה!");
 
+
+        alert("התחברת בהצלחה!");
         // שומרים את ה-UserId ב-localStorage
-        if (data && data.id) { // השתמש ב-userId עם u קטנה
-            localStorage.setItem("userId", data.id); // השתמש ב-userId עם u קטנה
-            console.log("UserId saved:", data.id); // הוספתי לוג לבדוק אם ה-UserId נשמר
+            console.log("UserId saved:", data.userId); // הוספתי לוג לבדוק אם ה-UserId נשמר
             console.log("Response data:", data);
-        } else {
-            console.log("UserId not found in response");
-        }
+        //} else {
+           // console.log("UserId not found in response");
+        //}
         console.log("Response data:", data); 
+        console.log("Response userId:", data.userId); 
+        if (data && data.userId)  // השתמש ב-userId עם u קטנה
+            localStorage.setItem("userId", data.userId); // השתמש ב-userId עם u קטנה
 
         document.getElementById("login-form").classList.add("hidden");
         document.getElementById("update-form").classList.remove("hidden");

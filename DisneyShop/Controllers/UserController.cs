@@ -40,7 +40,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                Task<User> user = service.logIn(userLogin);
+                User user = await service.logIn(userLogin);
                 return Ok(user);
             }
             catch (KeyNotFoundException ex)
@@ -55,7 +55,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                Task<User> user = service.UpdateUser(id, updatedUser); ;
+                User user = await service.UpdateUser(id, updatedUser); ;
                 return Ok(user);
             }
             catch (KeyNotFoundException ex)

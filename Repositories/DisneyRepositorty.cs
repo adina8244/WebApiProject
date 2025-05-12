@@ -1,6 +1,7 @@
 ﻿using Entites;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using static Microsoft.EntityFrameworkCore.DbContext;
 
 namespace Repositories
 {

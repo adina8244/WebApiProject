@@ -13,17 +13,12 @@ public partial class User
 {
     [Key]
     [Column("USER_ID")]
-    public int Id { get; set; }
+    public int UserId { get; set; }
 
     [Required]
     [Column("USER_NAME")]
     [StringLength(50)]
     public string UserName { get; set; }
-
-    [Required]
-    [Column("PASSWORD")]
-    [StringLength(50)]
-    public string Password { get; set; }
 
     [Column("FIRST_NAME")]
     [StringLength(50)]
@@ -32,4 +27,11 @@ public partial class User
     [Column("LAST_NAME")]
     [StringLength(50)]
     public string LastName { get; set; }
+
+    [Column("PASSWORD")]
+    [StringLength(50)]
+    public string Password { get; set; }
+
+    [InverseProperty("User")]
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

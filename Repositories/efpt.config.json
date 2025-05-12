@@ -8,7 +8,7 @@
    "OutputContextPath": null,
    "OutputPath": "",
    "PreserveCasingWithRegex": true,
-   "ProjectRootNamespace": "Entites",
+   "ProjectRootNamespace": "Repositories",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 2,
    "SelectedToBeGenerated": 0,
@@ -27,7 +27,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[PROUDCTS]",
+         "Name": "[dbo].[PRODUCTS]",
          "ObjectType": 0
       },
       {
