@@ -30,7 +30,7 @@ namespace WebApplication1.Controllers
             catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
-            }
+            }           
 
         }
 
