@@ -8,7 +8,7 @@ using Entites;
 
 namespace Services
 {
-    class OrderService: IOrderService
+    public class OrderService: IOrderService
     {
         IOrderRepository repository;
         public OrderService(IOrderRepository r)

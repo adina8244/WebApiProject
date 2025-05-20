@@ -5,19 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entites;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repositories
 {
-    class CategoriesReposetory : ICategoriesReposetory
+    public class CategoriesReposetory : ICategoriesReposetory
     {
-        webApiDB8192Context obDB;
-        public CategoriesReposetory(webApiDB8192Context w)
+        webApiDB8192Context _webApiDB8192Context;
+        public CategoriesReposetory(webApiDB8192Context webApiDB8192Context)
         {
-            obDB = w;
+            _webApiDB8192Context = webApiDB8192Context;
         }
         public async Task<List<Category>> getCategory()
         {
-            return await obDB.Categories.ToListAsync<Category>();
+            return await _webApiDB8192Context.Categories.ToListAsync<Category>();
         }
     }
 }

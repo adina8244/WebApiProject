@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    class ProductService: IProductService
+    public class ProductService: IProductService
     {
         IProductRepository repository;
         public ProductService(IProductRepository r)

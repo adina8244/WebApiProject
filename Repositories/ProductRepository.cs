@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    class ProductRepository: IProductRepository
+    public class ProductRepository: IProductRepository
     {
         webApiDB8192Context _webApiDB8192Context;
         public ProductRepository(webApiDB8192Context webApiDB8192Context)

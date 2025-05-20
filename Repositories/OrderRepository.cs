@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    class OrderRepository: IOrderRepository
+    public class OrderRepository: IOrderRepository
     {
         webApiDB8192Context _webApiDB8192Context;
         public OrderRepository(webApiDB8192Context webApiDB8192Context)

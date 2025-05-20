@@ -1,15 +1,19 @@
 ﻿using Entites;
-
 using Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Services
 {
-    class CategoriesService : ICategoriesService
+    public class CategoriesService : ICategoriesService
     {
-       
 
-        ICategoriesService repository;
-        public CategoriesService(ICategoriesService r)
+
+        ICategoriesReposetory repository;
+        public CategoriesService(ICategoriesReposetory r)
         {
             repository = r;
         }
