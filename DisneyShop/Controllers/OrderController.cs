@@ -8,7 +8,7 @@ namespace DisneyShop.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase   // חשוב להוריש מ-ControllerBase
+    public class OrderController : ControllerBase   
     {
         private readonly IOrderService _orderService;
         public OrderController(IOrderService orderService)
@@ -22,11 +22,11 @@ namespace DisneyShop.Controllers
             try
             {
                 OrderDTO result = await _orderService.AddOrder(order);
-                return Ok(result);  // כאן זו המתודה המובנית שמחזירה 200 עם התוצאה
+                return Ok(result);  
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message); // כאן מחזיר 400 עם ההודעה
+                return BadRequest(ex.Message); 
             }
         }
     }
