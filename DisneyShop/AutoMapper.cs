@@ -11,11 +11,11 @@ namespace DisneyShop
         public MappingProfile() 
         {
             CreateMap<Order, OrderDTO>().ReverseMap();
-            //CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Proudct, ProudctDTO>().ReverseMap();
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<UserLogin, UserLoginDTO>().ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
 
 
 

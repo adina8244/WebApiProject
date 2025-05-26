@@ -1,4 +1,5 @@
 ﻿using Entites;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,16 @@ namespace Repositories
         public async Task<Order> AddOrder(Order order)
         {
             await _webApiDB8192Context.Orders.AddAsync(order);
-            await _webApiDB8192Context.SaveChangesAsync();
+            try
+            {
+                await _webApiDB8192Context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine("שגיאת DB:");
+                Console.WriteLine(ex.InnerException?.Message);
+                throw;
+            }
             return await Task.FromResult(order);
         }
 
