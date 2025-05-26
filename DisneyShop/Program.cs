@@ -22,10 +22,12 @@ builder.Services.AddTransient<ICategoriesService, CategoriesService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 
-builder.Services.AddDbContext<webApiDB8192Context>(option => option.UseSqlServer(@"Data Source=srv2\pupils;Initial Catalog=webApiDB8192;Integrated Security=True; Trusted_Connection=True;TrustServerCertificate=True"));
+builder.Services.AddDbContext<webApiDB8192Context>(option => option.UseSqlServer(@"Data Source=DESKTOP-53C7JUQ;Initial Catalog=webApiDB8192;Integrated Security=True; Trusted_Connection=True;TrustServerCertificate=True"));
 builder.Services.AddOpenApi();
-//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 
 

@@ -11,9 +11,13 @@ namespace Services
     {
         
         IDisneyRepositorty repostery;
-        public Service(IDisneyRepositorty r)
+        IMapper mapper;
+
+        public Service(IDisneyRepositorty r, IMapper mapper)
         {
             repostery = r;
+            this.mapper = mapper;
+
         }
         public async Task<User> addUserRegister(User newUser)
         {
@@ -28,9 +32,8 @@ namespace Services
         public async Task<User> logIn(UserLoginDTO userLogin)
         {
             UserLogin userLogin1 = mapper.Map<UserLogin>(userLogin);
-            var sendRepos = await repostery.logIn(userLogin1);
-            var Dto = mapper.Map<OrderDTO>(userLogin1);
-            return mapper.Map<UserLogin>(Dto);
+            var sendRepos = await repostery.logIn(userLogin1); // נניח שזה מחזיר User
+            return sendRepos;
         }
         public bool validPassword(string password)
         {
