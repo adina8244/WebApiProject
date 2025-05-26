@@ -5,6 +5,7 @@ using Services;
 using Entites;
 using System.Collections;
 using System.Collections.Generic;
+using DTO;
 
 namespace DisneyShop.Controllers
 {
@@ -19,11 +20,11 @@ namespace DisneyShop.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Proudct>>> Get()
+        public async Task<ActionResult<List<ProudctDTO>>> Get()
         {
             try
             {
-                List<Proudct> result = await _productService.GetProudct();
+                List<ProudctDTO> result = await _productService.GetProudctAsync();
                 if (result == null)
                     return NotFound();
                 return Ok(result);

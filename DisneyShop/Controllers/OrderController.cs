@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using Services;
 using Entites;
+using DTO;
 
 namespace DisneyShop.Controllers
 {
@@ -16,12 +17,13 @@ namespace DisneyShop.Controllers
             _orderService = orderService;
         }
         [HttpPost]
-        public async Task<IActionResult> AddOrder([FromBody] Order order)
+        public async Task<IActionResult> AddOrder([FromBody] OrderDTO order)
         {
             try
             {
-                Order result = await _orderService.AddOrder(order);
-                return Ok(result);
+                OrderDTO result = await _orderService.AddOrder(order);
+                    return Ok(result);
+        
             }
             catch (ArgumentException ex)
             {
@@ -31,7 +33,7 @@ namespace DisneyShop.Controllers
             
         }
 
-        private IActionResult Ok(Order result)
+        private IActionResult Ok(OrderDTO result)
         {
             throw new NotImplementedException();
         }

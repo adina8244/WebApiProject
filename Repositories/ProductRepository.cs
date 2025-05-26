@@ -16,9 +16,9 @@ namespace Repositories
             _webApiDB8192Context = webApiDB8192Context;
         }
         
-        public async Task<List<Proudct>> GetProudct()
+        public async Task<List<Proudct>> GetProudctAsync()
         {
-            return await _webApiDB8192Context.Proudcts.ToListAsync<Proudct>();
+            return await _webApiDB8192Context.Proudcts.Include(c=>c.Category).ToListAsync<Proudct>();
         }
     }
 }

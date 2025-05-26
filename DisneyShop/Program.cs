@@ -4,6 +4,7 @@ using static Microsoft.EntityFrameworkCore.DbContext;
 using Repositories;
 using Services;
 using Entites;
+using DisneyShop;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
@@ -23,7 +24,8 @@ builder.Services.AddTransient<IOrderService, OrderService>();
 
 builder.Services.AddDbContext<webApiDB8192Context>(option => option.UseSqlServer(@"Data Source=srv2\pupils;Initial Catalog=webApiDB8192;Integrated Security=True; Trusted_Connection=True;TrustServerCertificate=True"));
 builder.Services.AddOpenApi();
-
+//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 var app = builder.Build();
 
 

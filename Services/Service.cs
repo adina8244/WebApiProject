@@ -1,6 +1,9 @@
-﻿    using Entites;
+﻿
+using DTO;
+using Entites;
 using Repositories;
 using Zxcvbn;
+using AutoMapper;
 
 namespace Services
 {
@@ -22,18 +25,12 @@ namespace Services
         }
 
 
-        public async Task<User> logIn(UserLogin userLogin)
+        public async Task<User> logIn(UserLoginDTO userLogin)
         {
-
-            User theLoggedInUser = await repostery.logIn(userLogin);
-            if (theLoggedInUser == null)
-            {
-                throw new KeyNotFoundException("User not found with the provided username and password.");
-            }
-
-
-            return  theLoggedInUser;
-
+            UserLogin userLogin1 = mapper.Map<UserLogin>(userLogin);
+            var sendRepos = await repostery.logIn(userLogin1);
+            var Dto = mapper.Map<OrderDTO>(userLogin1);
+            return mapper.Map<UserLogin>(Dto);
         }
         public bool validPassword(string password)
         {
@@ -60,6 +57,6 @@ namespace Services
             return theUpdatedUser;
         }
 
-
+       
     }
 }

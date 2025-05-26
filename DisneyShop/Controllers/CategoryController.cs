@@ -7,6 +7,7 @@ using Entites;
 using Services;
 using System.Collections;
 using System.Collections.Generic;
+using DTO;
 namespace DisneyShop.Controllers
 {
     [Route("api/[controller]")]
@@ -19,13 +20,19 @@ namespace DisneyShop.Controllers
             _categoriesService = categoriesService;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Category>>>getCategory()
+        public async Task<ActionResult<List<CategoryDTO>>>getCategoryAsync()
         {
-            List<Category> categories = await _categoriesService.getCategory();
-            if (categories == null)
-                return NotFound();
-
-            return Ok(categories);
+            try
+            {
+                List<CategoryDTO> result = await _categoriesService.getCategoryAsync();
+                if (result == null)
+                    return NotFound();
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using Services;
 using Entites;
+using DTO;
 
 namespace WebApplication1.Controllers
 {
@@ -36,7 +37,7 @@ namespace WebApplication1.Controllers
 
         //POST api/<Users>
         [HttpPost("logIn")]
-        public async Task<IActionResult> logIn([FromBody] UserLogin userLogin)
+        public async Task<IActionResult> logIn([FromBody] UserLoginDTO userLogin)
         {
             try
             {
@@ -73,10 +74,6 @@ namespace WebApplication1.Controllers
 
 
 
-        // DELETE api/<Users>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+       
     }
 }

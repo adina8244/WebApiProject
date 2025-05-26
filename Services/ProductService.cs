@@ -1,4 +1,6 @@
-﻿using Entites;
+﻿using AutoMapper;
+using DTO;
+using Entites;
 using Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,18 +10,20 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class ProductService: IProductService
+    public class ProductService : IProductService
     {
         IProductRepository repository;
-        public ProductService(IProductRepository r)
+        IMapper mapper;
+        public ProductService(IProductRepository r, IMapper mapper)
         {
             repository = r;
+            this.mapper = mapper;
         }
 
-        public async Task<List<Proudct>> GetProudct()
+        public async Task<List<ProudctDTO>> GetProudctAsync()
         {
-            return await repository.GetProudct();
+            List<Proudct> products = await repository.GetProudctAsync();
+            return mapper.Map<List<ProudctDTO>>(products); // Fixed the mapping type
         }
-
     }
 }

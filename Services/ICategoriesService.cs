@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entites;
+using DTO;
 
 namespace Services
 {
     public interface ICategoriesService
     {
-        Task<List<Category>> getCategory();
+        Task<List<CategoryDTO>> getCategoryAsync();
     }
 }
