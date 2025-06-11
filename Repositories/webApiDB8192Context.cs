@@ -15,6 +15,9 @@ public partial class webApiDB8192Context : DbContext
         : base(options)
     {
     }
+    public webApiDB8192Context()
+    {
+    }
 
     public virtual DbSet<Category> Categories { get; set; }
 
