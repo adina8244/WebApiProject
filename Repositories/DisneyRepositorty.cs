@@ -28,9 +28,18 @@ namespace Repositories
 
         public async Task<User> UpdateUser(int id, User updatedUser)
         {
-            _webApiDB8192Context.Users.Update(updatedUser);
+            var existingUser = await _webApiDB8192Context.Users.FindAsync(id);
+            if (existingUser == null)
+                return null;
+
+            // עדכן את השדות הרלוונטיים בלבד
+            existingUser.UserName = updatedUser.UserName;
+            existingUser.Password = updatedUser.Password;
+            existingUser.FirstName = updatedUser.FirstName;
+            existingUser.LastName = updatedUser.LastName;
+
             await _webApiDB8192Context.SaveChangesAsync();
-            return updatedUser;
+            return existingUser;
         }
     }
 }

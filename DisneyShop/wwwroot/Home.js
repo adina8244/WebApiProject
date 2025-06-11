@@ -1,9 +1,11 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("switch-to-register").addEventListener("click", function (event) {
-        event.preventDefault();
-        document.getElementById("login-form").classList.add("hidden");
-        document.getElementById("register-form").classList.remove("hidden");
-    });
+    const switchToRegister = document.getElementById("switch-to-register");
+    if (switchToRegister) {
+        switchToRegister.addEventListener("click", function (event) {
+            event.preventDefault();
+            document.getElementById("login-form").classList.add("hidden");
+            document.getElementById("register-form").classList.remove("hidden");
+        });
 
     document.getElementById("switch-to-login").addEventListener("click", function (event) {
         event.preventDefault();
@@ -12,8 +14,9 @@
     });
 
     document.querySelector("#login-form button").addEventListener("click", logIn);
-    document.querySelector("#register-form button").addEventListener("click", register);
-    document.querySelector("#update-form button").addEventListener("click", updateUser);
+        const registerButton = document.querySelector("#register-form button");
+        if (registerButton) registerButton.addEventListener("click", register);
+        document.querySelector("#update-form button").addEventListener("click", updateUser);
 
 });
 
