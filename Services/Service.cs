@@ -4,19 +4,21 @@ using Entites;
 using Repositories;
 using Zxcvbn;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace Services
 {
     public class Service : IService
     {
-        
+        private readonly ILogger<Service> _logger;
         IDisneyRepositorty repostery;
         IMapper mapper;
 
-        public Service(IDisneyRepositorty r, IMapper mapper)
+        public Service(IDisneyRepositorty r, IMapper mapper, ILogger<Service> logger)
         {
             repostery = r;
             this.mapper = mapper;
+            _logger = logger;
 
         }
         public async Task<User> addUserRegister(User newUser)
@@ -47,6 +49,7 @@ namespace Services
         }
         public async Task<User> UpdateUser(int id, User updatedUser)
         {
+            _logger?.LogInformation($"Updating user with ID: {id}");
             Console.WriteLine($"Updating user with ID: {id}");
             if (!validPassword(updatedUser.Password))
             {

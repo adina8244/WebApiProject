@@ -11,7 +11,7 @@ namespace  TestProject1.Unit_Test
         public void ValidPassword_ShouldReturnFalse_ForWeakPassword()
         {
             // Arrange  
-            var service = new Service(null, null); // Ensure the 'Service' class is implemented and accessible.  
+            var service = new Service(null, null, null); // Ensure the 'Service' class is implemented and accessible.  
 
             // Act  
             bool result = service.validPassword("123");
@@ -24,7 +24,7 @@ namespace  TestProject1.Unit_Test
         public void ValidPassword_ShouldReturnTrue_ForStrongPassword()
         {
             // Arrange  
-            var service = new Service(null, null); // Ensure the 'Service' class is implemented and accessible.  
+            var service = new Service(null, null, null); // Ensure the 'Service' class is implemented and accessible.  
 
             // Act  
             bool result = service.validPassword("Str0ngP@ssw0rd!");
