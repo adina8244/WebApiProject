@@ -1,41 +1,49 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbContext;
-
+using NLog.Web;
 using Repositories;
 using Services;
 using Entites;
 using DisneyShop;
+
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
+
+// הגדרות לוגינג
+builder.Logging.ClearProviders();
+builder.Logging.SetMinimumLevel(LogLevel.Trace);
+builder.Host.UseNLog();
+
+// הוספת שירותים ל־DI
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IDisneyRepositorty,DisneyRepositorty>();
+builder.Services.AddTransient<IDisneyRepositorty, DisneyRepositorty>();
 builder.Services.AddTransient<ICategoriesReposetory, CategoriesReposetory>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 
-
-builder.Services.AddTransient<IService,Service>();
+builder.Services.AddTransient<IService, Service>();
 builder.Services.AddTransient<ICategoriesService, CategoriesService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 
-builder.Services.AddDbContext<webApiDB8192Context>(option => option.UseSqlServer(@"Data Source=DESKTOP-53C7JUQ;Initial Catalog=webApiDB8192;Integrated Security=True; Trusted_Connection=True;TrustServerCertificate=True"));
+builder.Services.AddDbContext<webApiDB8192Context>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MyDisneyDB")));
+
 builder.Services.AddOpenApi();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddAutoMapper(typeof(MappingProfile));
-builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
+// לוג כשהאפליקציה עלתה
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("The application has started successfully.❤️😥😂😁❤️");
 
-
+// סטטיים, https
 app.UseStaticFiles();
 app.UseHttpsRedirection();
-app.UseStaticFiles();
 app.UseAuthorization();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -45,8 +53,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// Map the default route to home.html
-// Ensure that home.html loads properly
+// בדיקת קובץ home.html
 var directoryPath = Path.Combine(app.Environment.WebRootPath, "home.html");
 if (!File.Exists(directoryPath))
 {
@@ -59,5 +66,9 @@ app.MapGet("/", async context =>
     await context.Response.SendFileAsync(directoryPath);
 });
 
+var testLogger = app.Services.GetRequiredService<ILogger<Program>>();
+testLogger.LogWarning("🟡 בדיקת NLog - אם אתה רואה את זה, NLog עובד!");
+
 app.MapControllers();
+
 app.Run();
