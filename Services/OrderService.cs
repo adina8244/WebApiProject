@@ -17,9 +17,10 @@ namespace Services
         public async Task<OrderDTO> AddOrder(OrderDTO orderDTO)
         {
             Order orginalOrder = mapper.Map<Order>(orderDTO);
-            var sendRepos= await repository.AddOrder(orginalOrder);
-            var Dto = mapper.Map<OrderDTO>(orginalOrder);
-            return mapper.Map<OrderDTO> (Dto);
+            var sendRepos = await repository.AddOrder(orginalOrder);
+            // var Dto = mapper.Map<OrderDTO>(orginalOrder);
+            // return mapper.Map<OrderDTO> (Dto);
+            return mapper.Map<OrderDTO>(sendRepos);//the return order
         }
     }
 }

@@ -24,8 +24,8 @@ namespace Repositories
             }
             catch (DbUpdateException ex)
             {
-                Console.WriteLine("שגיאת DB:");
-                Console.WriteLine(ex.InnerException?.Message);
+                Console.WriteLine("שגיאת DB:");//
+                Console.WriteLine(ex.InnerException?.Message);//
                 throw;
             }
             return await Task.FromResult(order);

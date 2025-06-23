@@ -17,7 +17,7 @@ namespace Repositories
         {
             _webApiDB8192Context = webApiDB8192Context;
         }
-        public async Task<List<Category>> getCategoryAsync()
+        public async Task<List<Category>> getCategoryAsync() // Change to PascalCase: GetCategoryAsync
         {
             return await _webApiDB8192Context.Categories.Include(c=>c.Proudcts).ToListAsync< Category>();
         }

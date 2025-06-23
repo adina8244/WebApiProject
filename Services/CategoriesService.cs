@@ -12,8 +12,9 @@ namespace Services
 {
     public class CategoriesService : ICategoriesService
     {
-        private readonly ICategoriesReposetory repository;
-        private readonly IMapper mapper;
+        //delete unsed code
+        private readonly ICategoriesReposetory repository;//_repository
+        private readonly IMapper mapper;//_mapper
 
         public CategoriesService(ICategoriesReposetory r, IMapper mapper)
         {
@@ -21,8 +22,7 @@ namespace Services
             this.mapper = mapper;
         }
 
-
-        public async Task<List<CategoryDTO>> getCategoryAsync()
+        public async Task<List<CategoryDTO>> GetCategoryAsync() // Changed to PascalCase
         {
             List<Category> Category = await repository.getCategoryAsync();
             return mapper.Map<List<CategoryDTO>>(Category); 

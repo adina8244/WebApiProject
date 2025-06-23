@@ -20,14 +20,14 @@ namespace DisneyShop.Controllers
             _categoriesService = categoriesService;
         }
         [HttpGet]
-        public async Task<ActionResult<List<CategoryDTO>>>getCategoryAsync()
+        public async Task<ActionResult<List<CategoryDTO>>> getCategoryAsync() // Change to PascalCase: GetCategoryAsync
         {
             try
             {
                 List<CategoryDTO> result = await _categoriesService.getCategoryAsync();
                 if (result == null)
                     return NotFound();
-                return Ok(result);
+                return Ok(result);//result == null ? return NotFound() : return Ok(result);
             }
             catch (ArgumentException ex)
             {

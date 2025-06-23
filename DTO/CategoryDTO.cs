@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
+    //delete unsed code
     //public record CategoryDTO(int CategoryId, string CategoryName, ICollection<ProudctDTO> Products);
     public record CategoryDTO(int CategoryId, string CategoryName, ICollection<ProudctDTO> Products)
     {
