@@ -27,7 +27,7 @@ namespace DisneyShop.Controllers
                 List<ProudctDTO> result = await _productService.GetProudctAsync();
                 if (result == null)
                     return NotFound();
-                return Ok(result);
+                return Ok(result);// result == null ? return NotFound() : return Ok(result);
             }
             catch(ArgumentException ex)
             {

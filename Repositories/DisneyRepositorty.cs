@@ -13,7 +13,7 @@ namespace Repositories
         {
             _webApiDB8192Context = webApiDB8192Context;
         }
-        public async Task<User> addUserRegister(User user)
+        public async Task<User> addUserRegister(User user)//AddUserRegister
         {
        
             await _webApiDB8192Context.Users.AddAsync(user);
@@ -21,23 +21,23 @@ namespace Repositories
             return await Task.FromResult(user);
         }
 
-        public async Task<User> logIn(UserLogin userLogin)
+        public async Task<User> logIn(UserLogin userLogin)//LogIn
         {
             return await _webApiDB8192Context.Users.FirstOrDefaultAsync(user => user.UserName == userLogin.UserName && user.Password == userLogin.Password);
         }
 
         public async Task<User> UpdateUser(int id, User updatedUser)
         {
-            var existingUser = await _webApiDB8192Context.Users.FindAsync(id);
-            if (existingUser == null)
-                return null;
+            // var existingUser = await _webApiDB8192Context.Users.FindAsync(id);
+            // if (existingUser == null)
+            //     return null;
 
-            // עדכן את השדות הרלוונטיים בלבד
-            existingUser.UserName = updatedUser.UserName;
-            existingUser.Password = updatedUser.Password;
-            existingUser.FirstName = updatedUser.FirstName;
-            existingUser.LastName = updatedUser.LastName;
-
+            // // עדכן את השדות הרלוונטיים בלבד
+            // existingUser.UserName = updatedUser.UserName;
+            // existingUser.Password = updatedUser.Password;
+            // existingUser.FirstName = updatedUser.FirstName;
+            // existingUser.LastName = updatedUser.LastName;
+            _webApiDB8192Context.Users.Update(updatedUser);
             await _webApiDB8192Context.SaveChangesAsync();
             return existingUser;
         }

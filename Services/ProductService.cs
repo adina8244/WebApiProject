@@ -12,8 +12,8 @@ namespace Services
 {
     public class ProductService : IProductService
     {
-        IProductRepository repository;
-        IMapper mapper;
+        IProductRepository repository;// _repository
+        IMapper mapper;// _mapper
         public ProductService(IProductRepository r, IMapper mapper)
         {
             repository = r;
@@ -23,7 +23,7 @@ namespace Services
         public async Task<List<ProudctDTO>> GetProudctAsync()
         {
             List<Proudct> products = await repository.GetProudctAsync();
-            return mapper.Map<List<ProudctDTO>>(products); // Fixed the mapping type
+            return mapper.Map<List<ProudctDTO>>(products);
         }
     }
 }

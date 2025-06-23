@@ -12,7 +12,8 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class Users : ControllerBase    
     {
-        IService service;
+        //delete unused code
+        IService service;//_service
         public Users(IService s)
         {
             service = s;
@@ -21,7 +22,7 @@ namespace WebApplication1.Controllers
         
         // POST api/<Users>
         [HttpPost("register")]
-        public async Task<IActionResult> addUserRegister([FromBody] User newUser)
+        public async Task<IActionResult> addUserRegister([FromBody] User newUser) // Change to PascalCase: AddUserRegister
         {
             try
             {
@@ -37,7 +38,7 @@ namespace WebApplication1.Controllers
 
         //POST api/<Users>
         [HttpPost("logIn")]
-        public async Task<IActionResult> logIn([FromBody] UserLoginDTO userLogin)
+        public async Task<IActionResult> logIn([FromBody] UserLoginDTO userLogin) // Change to PascalCase: LogIn
         {
             try
             {
